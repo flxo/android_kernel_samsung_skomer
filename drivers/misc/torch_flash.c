@@ -124,7 +124,7 @@ static ssize_t Torch_Flash_Control(struct device *dev, struct device_attribute *
 		torch_debug_msg("Torch_Flash is already On!!\n");
 #if TORCH_TIME_EXPIRE
 		hrtimer_start(&torch_timer, ktime_set(val, 0), HRTIMER_MODE_REL);
-		torch_debug_msg("timer set to %d\n", val);
+		torch_debug_msg("timer set to %ld\n", val);
 #endif
 	} else {
 		torch_debug_msg("Torch_Flash_On\n");
@@ -133,7 +133,7 @@ static ssize_t Torch_Flash_Control(struct device *dev, struct device_attribute *
 		wake_lock(&torch_wake_lock);
 #if TORCH_TIME_EXPIRE
 		hrtimer_start(&torch_timer, ktime_set(val, 0), HRTIMER_MODE_REL);
-		torch_debug_msg("timer set to %d\n", val);
+		torch_debug_msg("timer set to %ld\n", val);
 #endif
 	}
 	return size;
@@ -185,7 +185,7 @@ static int torch_flash_remove(struct platform_device *pdev)
 	return 0;
 }
 
-static struct platform_driver torch_flash_driver = {
+static struct platform_driver torch_flash_driver __refdata = {
 	.probe		= torch_flash_probe,
 	.remove		= torch_flash_remove,
 	.driver		= {
