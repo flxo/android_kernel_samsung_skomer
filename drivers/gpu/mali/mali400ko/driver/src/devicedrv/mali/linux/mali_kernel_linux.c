@@ -43,9 +43,6 @@ static int initialize_sysfs(void);
 static void terminate_kernel_device(void);
 
 
-/* from the __malidrv_build_info.c file that is generated during build */
-extern const char *__malidrv_build_info(void);
-
 /* Setting this parameter will override memory settings in arch/config.h */
 char *mali_mem = "";
 module_param(mali_mem, charp, S_IRUSR | S_IWUSR | S_IWGRP | S_IROTH); /* rw-r--r-- */
@@ -113,12 +110,9 @@ extern struct platform_driver mali_plat_driver;
 
 static int __init mali_driver_init(void)
 {
-	int ret = 0;
-
 	MALI_DEBUG_PRINT(2, ("\n"));
 	MALI_DEBUG_PRINT(2, ("Inserting Mali v%d device driver. \n",_MALI_API_VERSION));
 	MALI_DEBUG_PRINT(2, ("Compiled: %s, time: %s.\n", __DATE__, __TIME__));
-	MALI_DEBUG_PRINT(2, ("Driver revision: %s\n", SVN_REV_STRING));
 
 	return platform_driver_register(&mali_plat_driver);
 
@@ -156,7 +150,6 @@ platform_init_failed:
 	terminate_kernel_device();
 initialize_kernel_device_failed:
 	_mali_dev_platform_unregister();
-platform_register_failed:
 	return ret;
 }
 
@@ -551,4 +544,4 @@ module_exit(mali_driver_exit);
 
 MODULE_LICENSE(MALI_KERNEL_LINUX_LICENSE);
 MODULE_AUTHOR("ARM Ltd.");
-MODULE_VERSION(SVN_REV_STRING);
+MODULE_VERSION("r3p1-01rel0");

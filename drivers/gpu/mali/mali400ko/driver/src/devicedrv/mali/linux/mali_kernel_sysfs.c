@@ -759,7 +759,7 @@ static int mali_seq_internal_state_show(struct seq_file *seq_file, void *v)
 	}
 
 	/* Create the internal state dump. */
-	len  = snprintf(buf+len, size-len, "Mali device driver %s\n", SVN_REV_STRING);
+	len  = snprintf(buf+len, size-len, "Mali device driver\n");
 	len += snprintf(buf+len, size-len, "License: %s\n\n", MALI_KERNEL_LINUX_LICENSE);
 
 	len += _mali_kernel_core_dump_state(buf + len, size - len);
